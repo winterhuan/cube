@@ -6,18 +6,32 @@ ENV CUBEJS_DOCKER_IMAGE_VERSION=$IMAGE_VERSION
 ENV CUBEJS_DOCKER_IMAGE_TAG=dev
 ENV CI=0
 
-RUN DEBIAN_FRONTEND=noninteractive \
-    && apt-get update \
+RUN sed -i 's/deb.debian.org/mirrors.aliyun.com/g' /etc/apt/sources.list.d/debian.sources \
+    && DEBIAN_FRONTEND=noninteractive apt-get update \
     # python3 package is necessary to install `python3` executable for node-gyp
     && apt-get install -y --no-install-recommends libssl3 curl \
-       cmake python3 python3.11 libpython3.11-dev gcc g++ make cmake openjdk-17-jdk-headless \
+    cmake python3 python3.11 libpython3.11-dev gcc g++ make cmake openjdk-17-jdk-headless \
     && rm -rf /var/lib/apt/lists/*
 
 ENV RUSTUP_HOME=/usr/local/rustup
 ENV CARGO_HOME=/usr/local/cargo
 ENV PATH=/usr/local/cargo/bin:$PATH
+ENV RUSTUP_DIST_SERVER=https://rsproxy.cn
+ENV RUSTUP_UPDATE_ROOT=https://rsproxy.cn/rustup
 
-RUN curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | \
+RUN mkdir -p $CARGO_HOME \
+    && echo '[source.crates-io]' > $CARGO_HOME/config \
+    && echo 'replace-with = "rsproxy-sparse"' >> $CARGO_HOME/config \
+    && echo '[source.rsproxy]' >> $CARGO_HOME/config \
+    && echo 'registry = "https://rsproxy.cn/crates.io-index"' >> $CARGO_HOME/config \
+    && echo '[source.rsproxy-sparse]' >> $CARGO_HOME/config \
+    && echo 'registry = "sparse+https://rsproxy.cn/index/"' >> $CARGO_HOME/config \
+    && echo '[registries.rsproxy]' >> $CARGO_HOME/config \
+    && echo 'index = "https://rsproxy.cn/crates.io-index"' >> $CARGO_HOME/config \
+    && echo '[net]' >> $CARGO_HOME/config \
+    && echo 'git-fetch-with-cli = true' >> $CARGO_HOME/config
+
+RUN curl --proto '=https' --tlsv1.2 -sSf https://rsproxy.cn/rustup-init.sh | \
     sh -s -- --profile minimal --default-toolchain nightly-2022-03-08 -y
 
 ENV CUBESTORE_SKIP_POST_INSTALL=true
@@ -89,7 +103,16 @@ COPY packages/cubejs-playground/package.json packages/cubejs-playground/package.
 
 RUN yarn policies set-version v1.22.22
 # Yarn v1 uses aggressive timeouts with summing time spending on fs, https://github.com/yarnpkg/yarn/issues/4890
-RUN yarn config set network-timeout 120000 -g
+RUN yarn config set network-timeout 1000000 -g \
+    && yarn config set registry https://registry.npmmirror.com -g \
+    && yarn config set sass_binary_site https://npmmirror.com/mirrors/node-sass -g \
+    && yarn config set phantomjs_cdnurl https://npmmirror.com/mirrors/phantomjs -g \
+    && yarn config set electron_mirror https://npmmirror.com/mirrors/electron/ -g \
+    && yarn config set sqlite3_binary_host_mirror https://npmmirror.com/mirrors/sqlite3 -g \
+    && yarn config set profiler_binary_host_mirror https://npmmirror.com/mirrors/node-pre-gyp/ -g \
+    && yarn config set chromedriver_cdnurl https://npmmirror.com/mirrors/chromedriver -g \
+    && sed -i 's#https://registry.yarnpkg.com#https://registry.npmmirror.com#g' yarn.lock
+ENV NODE_OPTIONS="--max-old-space-size=4096"
 
 # There is a problem with release process.
 # We are doing version bump without updating lock files for the docker package.
@@ -165,7 +188,7 @@ COPY packages/cubejs-client-ws-transport/ packages/cubejs-client-ws-transport/
 COPY packages/cubejs-playground/ packages/cubejs-playground/
 
 RUN yarn build
-RUN yarn lerna run build
+RUN yarn lerna run build --concurrency 4
 
 RUN find . -name 'node_modules' -type d -prune -exec rm -rf '{}' +
 

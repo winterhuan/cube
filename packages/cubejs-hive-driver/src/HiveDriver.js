@@ -67,7 +67,7 @@ class HiveDriver extends BaseDriver {
       host: getEnv('dbHost', { dataSource }),
       port: getEnv('dbPort', { dataSource }),
       dbName: getEnv('dbName', { dataSource }) || 'default',
-      timeout: 10000,
+      timeout: getEnv('dbTimeout', { dataSource }) || 60000,
       username: getEnv('dbUser', { dataSource }),
       password: getEnv('dbPass', { dataSource }),
       hiveType: getEnv('hiveType', { dataSource }) === 'CDH'
@@ -76,12 +76,12 @@ class HiveDriver extends BaseDriver {
       hiveVer: getEnv('hiveVer', { dataSource }) || '2.1.1',
       thriftVer: getEnv('hiveThriftVer', { dataSource }) || '0.9.3',
       cdhVer: getEnv('hiveCdhVer', { dataSource }),
-      authZid: 'cube.js',
+      authZid: getEnv('dbAuthZid', { dataSource }) || '',
       ...config
     };
 
     const configuration = new Configuration(this.config);
-    
+
     this.pool = genericPool.createPool({
       create: async () => {
         const idl = new IDLContainer();
@@ -129,7 +129,7 @@ class HiveDriver extends BaseDriver {
       evictionRunIntervalMillis: 10000,
       softIdleTimeoutMillis: 30000,
       idleTimeoutMillis: 30000,
-      acquireTimeoutMillis: 20000
+      acquireTimeoutMillis: getEnv('dbAcquireTimeout', { dataSource }) || 60000
     });
   }
 

@@ -150,7 +150,7 @@ const DbTypeValueMatcher: Record<string, ((v: any) => boolean)> = {
  * Base driver class.
  */
 export abstract class BaseDriver implements DriverInterface {
-  private readonly testConnectionTimeoutValue: number = 10000;
+  private readonly testConnectionTimeoutValue: number = 60000;
 
   protected logger: any;
 
@@ -164,7 +164,7 @@ export abstract class BaseDriver implements DriverInterface {
      */
     testConnectionTimeout?: number,
   } = {}) {
-    this.testConnectionTimeoutValue = _options.testConnectionTimeout || 10000;
+    this.testConnectionTimeoutValue = _options.testConnectionTimeout || 60000;
   }
 
   protected informationSchemaQuery() {
@@ -706,7 +706,7 @@ export abstract class BaseDriver implements DriverInterface {
     return Date.now();
   }
 
-  public wrapQueryWithLimit(query: { query: string, limit: number}) {
+  public wrapQueryWithLimit(query: { query: string, limit: number }) {
     query.query = `SELECT * FROM (${query.query}) AS t LIMIT ${query.limit}`;
   }
 

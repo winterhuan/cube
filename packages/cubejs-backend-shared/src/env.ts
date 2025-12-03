@@ -66,8 +66,7 @@ export function assertDataSource(dataSource = 'default'): string {
     return dataSource;
   } else {
     throw new Error(
-      `The ${
-        dataSource
+      `The ${dataSource
       } data source is missing in the declared CUBEJS_DATASOURCES.`
     );
   }
@@ -90,10 +89,8 @@ export function keyByDataSource(origin: string, dataSource?: string): string {
       return `CUBEJS_DS_${dataSource.toUpperCase()}_${s[1]}`;
     } else {
       throw new Error(
-        `The ${
-          origin
-        } environment variable can not be converted for the ${
-          dataSource
+        `The ${origin
+        } environment variable can not be converted for the ${dataSource
         } data source.`
       );
     }
@@ -304,8 +301,7 @@ const variables: Record<string, (...args: any) => any> = {
       return false;
     } else {
       throw new TypeError(
-        `The ${
-          keyByDataSource('CUBEJS_DB_SSL', dataSource)
+        `The ${keyByDataSource('CUBEJS_DB_SSL', dataSource)
         } must be either 'true' or 'false'.`
       );
     }
@@ -328,8 +324,7 @@ const variables: Record<string, (...args: any) => any> = {
       return false;
     } else {
       throw new TypeError(
-        `The ${
-          keyByDataSource('CUBEJS_DB_SSL_REJECT_UNAUTHORIZED', dataSource)
+        `The ${keyByDataSource('CUBEJS_DB_SSL_REJECT_UNAUTHORIZED', dataSource)
         } must be either 'true' or 'false'.`
       );
     }
@@ -344,7 +339,7 @@ const variables: Record<string, (...args: any) => any> = {
     dataSource: string,
   }) => (
     process.env[
-      keyByDataSource('CUBEJS_DB_URL', dataSource)
+    keyByDataSource('CUBEJS_DB_URL', dataSource)
     ]
   ),
 
@@ -357,7 +352,7 @@ const variables: Record<string, (...args: any) => any> = {
     dataSource: string,
   }) => (
     process.env[
-      keyByDataSource('CUBEJS_DB_HOST', dataSource)
+    keyByDataSource('CUBEJS_DB_HOST', dataSource)
     ]
   ),
 
@@ -381,8 +376,7 @@ const variables: Record<string, (...args: any) => any> = {
       return false;
     } else {
       throw new TypeError(
-        `The ${
-          keyByDataSource('CUBEJS_DB_USE_SELECT_TEST_CONNECTION', dataSource)
+        `The ${keyByDataSource('CUBEJS_DB_USE_SELECT_TEST_CONNECTION', dataSource)
         } must be either 'true' or 'false'.`
       );
     }
@@ -447,8 +441,7 @@ const variables: Record<string, (...args: any) => any> = {
   }) => (
     process.env[keyByDataSource('CUBEJS_DB_PORT', dataSource)]
       ? parseInt(
-        `${
-          process.env[keyByDataSource('CUBEJS_DB_PORT', dataSource)]
+        `${process.env[keyByDataSource('CUBEJS_DB_PORT', dataSource)]
         }`,
         10,
       )
@@ -503,8 +496,7 @@ const variables: Record<string, (...args: any) => any> = {
     ];
     if (required && !val) {
       throw new Error(
-        `The ${
-          keyByDataSource('CUBEJS_DB_NAME', dataSource)
+        `The ${keyByDataSource('CUBEJS_DB_NAME', dataSource)
         } is required and missing.`
       );
     }
@@ -523,10 +515,8 @@ const variables: Record<string, (...args: any) => any> = {
     required?: boolean,
   }) => {
     console.warn(
-      `The ${
-        keyByDataSource('CUBEJS_DB_SCHEMA', dataSource)
-      } is deprecated. Please, use the ${
-        keyByDataSource('CUBEJS_DB_NAME', dataSource)
+      `The ${keyByDataSource('CUBEJS_DB_SCHEMA', dataSource)
+      } is deprecated. Please, use the ${keyByDataSource('CUBEJS_DB_NAME', dataSource)
       } instead.`
     );
     const val = process.env[
@@ -534,8 +524,7 @@ const variables: Record<string, (...args: any) => any> = {
     ];
     if (required && !val) {
       throw new Error(
-        `The ${
-          keyByDataSource('CUBEJS_DB_SCHEMA', dataSource)
+        `The ${keyByDataSource('CUBEJS_DB_SCHEMA', dataSource)
         } is required and missing.`
       );
     }
@@ -554,10 +543,8 @@ const variables: Record<string, (...args: any) => any> = {
     required?: boolean,
   }) => {
     console.warn(
-      `The ${
-        keyByDataSource('CUBEJS_DATABASE', dataSource)
-      } is deprecated. Please, use the ${
-        keyByDataSource('CUBEJS_DB_NAME', dataSource)
+      `The ${keyByDataSource('CUBEJS_DATABASE', dataSource)
+      } is deprecated. Please, use the ${keyByDataSource('CUBEJS_DB_NAME', dataSource)
       } instead.`
     );
     const val = process.env[
@@ -565,8 +552,7 @@ const variables: Record<string, (...args: any) => any> = {
     ];
     if (required && !val) {
       throw new Error(
-        `The ${
-          keyByDataSource('CUBEJS_DATABASE', dataSource)
+        `The ${keyByDataSource('CUBEJS_DATABASE', dataSource)
         } is required and missing.`
       );
     }
@@ -583,10 +569,9 @@ const variables: Record<string, (...args: any) => any> = {
   }) => (
     process.env[keyByDataSource('CUBEJS_DB_MAX_POOL', dataSource)]
       ? parseInt(
-        `${
-          process.env[
-            keyByDataSource('CUBEJS_DB_MAX_POOL', dataSource)
-          ]
+        `${process.env[
+        keyByDataSource('CUBEJS_DB_MAX_POOL', dataSource)
+        ]
         }`,
         10,
       )
@@ -785,8 +770,7 @@ const variables: Record<string, (...args: any) => any> = {
       supported.indexOf(<'s3' | 'gcp' | 'azure'>val) === -1
     ) {
       throw new TypeError(
-        `The ${
-          keyByDataSource('CUBEJS_DB_EXPORT_BUCKET_TYPE', dataSource)
+        `The ${keyByDataSource('CUBEJS_DB_EXPORT_BUCKET_TYPE', dataSource)
         } must be one of the [${supported.join(', ')}].`
       );
     }
@@ -814,7 +798,7 @@ const variables: Record<string, (...args: any) => any> = {
     dataSource: string,
   }) => (
     process.env[
-      keyByDataSource('CUBEJS_DB_EXPORT_BUCKET_MOUNT_DIR', dataSource)
+    keyByDataSource('CUBEJS_DB_EXPORT_BUCKET_MOUNT_DIR', dataSource)
     ]
   ),
 
@@ -827,7 +811,7 @@ const variables: Record<string, (...args: any) => any> = {
     dataSource: string,
   }) => (
     process.env[
-      keyByDataSource('CUBEJS_DB_EXPORT_BUCKET_AWS_KEY', dataSource)
+    keyByDataSource('CUBEJS_DB_EXPORT_BUCKET_AWS_KEY', dataSource)
     ]
   ),
 
@@ -840,7 +824,7 @@ const variables: Record<string, (...args: any) => any> = {
     dataSource: string,
   }) => (
     process.env[
-      keyByDataSource('CUBEJS_DB_EXPORT_BUCKET_AWS_SECRET', dataSource)
+    keyByDataSource('CUBEJS_DB_EXPORT_BUCKET_AWS_SECRET', dataSource)
     ]
   ),
 
@@ -853,7 +837,7 @@ const variables: Record<string, (...args: any) => any> = {
     dataSource: string,
   }) => (
     process.env[
-      keyByDataSource('CUBEJS_DB_EXPORT_BUCKET_AWS_REGION', dataSource)
+    keyByDataSource('CUBEJS_DB_EXPORT_BUCKET_AWS_REGION', dataSource)
     ]
   ),
 
@@ -866,7 +850,7 @@ const variables: Record<string, (...args: any) => any> = {
     dataSource: string,
   }) => (
     process.env[
-      keyByDataSource('CUBEJS_DB_EXPORT_BUCKET_AZURE_KEY', dataSource)
+    keyByDataSource('CUBEJS_DB_EXPORT_BUCKET_AZURE_KEY', dataSource)
     ]
   ),
 
@@ -879,7 +863,7 @@ const variables: Record<string, (...args: any) => any> = {
     dataSource: string,
   }) => (
     process.env[
-      keyByDataSource('CUBEJS_DB_EXPORT_BUCKET_AZURE_SAS_TOKEN', dataSource)
+    keyByDataSource('CUBEJS_DB_EXPORT_BUCKET_AZURE_SAS_TOKEN', dataSource)
     ]
   ),
 
@@ -892,7 +876,7 @@ const variables: Record<string, (...args: any) => any> = {
     dataSource: string,
   }) => (
     process.env[
-      keyByDataSource('CUBEJS_DB_EXPORT_BUCKET_AZURE_CLIENT_ID', dataSource)
+    keyByDataSource('CUBEJS_DB_EXPORT_BUCKET_AZURE_CLIENT_ID', dataSource)
     ]
   ),
 
@@ -905,7 +889,7 @@ const variables: Record<string, (...args: any) => any> = {
     dataSource: string,
   }) => (
     process.env[
-      keyByDataSource('CUBEJS_DB_EXPORT_BUCKET_AZURE_CLIENT_SECRET', dataSource)
+    keyByDataSource('CUBEJS_DB_EXPORT_BUCKET_AZURE_CLIENT_SECRET', dataSource)
     ]
   ),
 
@@ -918,7 +902,7 @@ const variables: Record<string, (...args: any) => any> = {
     dataSource: string,
   }) => (
     process.env[
-      keyByDataSource('CUBEJS_DB_EXPORT_BUCKET_AZURE_FEDERATED_TOKEN_FILE', dataSource)
+    keyByDataSource('CUBEJS_DB_EXPORT_BUCKET_AZURE_FEDERATED_TOKEN_FILE', dataSource)
     ]
   ),
 
@@ -931,7 +915,7 @@ const variables: Record<string, (...args: any) => any> = {
     dataSource: string,
   }) => (
     process.env[
-      keyByDataSource('CUBEJS_DB_EXPORT_BUCKET_AZURE_TENANT_ID', dataSource)
+    keyByDataSource('CUBEJS_DB_EXPORT_BUCKET_AZURE_TENANT_ID', dataSource)
     ]
   ),
 
@@ -944,7 +928,7 @@ const variables: Record<string, (...args: any) => any> = {
     dataSource: string,
   }) => (
     process.env[
-      keyByDataSource('CUBEJS_DB_EXPORT_INTEGRATION', dataSource)
+    keyByDataSource('CUBEJS_DB_EXPORT_INTEGRATION', dataSource)
     ]
   ),
 
@@ -992,11 +976,10 @@ const variables: Record<string, (...args: any) => any> = {
         return false;
       } else {
         throw new TypeError(
-          `The ${
-            keyByDataSource(
-              'CUBEJS_DB_MYSQL_USE_NAMED_TIMEZONES',
-              dataSource,
-            )
+          `The ${keyByDataSource(
+            'CUBEJS_DB_MYSQL_USE_NAMED_TIMEZONES',
+            dataSource,
+          )
           } must be either 'true' or 'false'.`
         );
       }
@@ -1022,8 +1005,7 @@ const variables: Record<string, (...args: any) => any> = {
     ];
     if (!val) {
       throw new Error(
-        `The ${
-          keyByDataSource('CUBEJS_DB_DATABRICKS_URL', dataSource)
+        `The ${keyByDataSource('CUBEJS_DB_DATABRICKS_URL', dataSource)
         } is required and missing.`
       );
     }
@@ -1039,7 +1021,7 @@ const variables: Record<string, (...args: any) => any> = {
     dataSource: string,
   }) => (
     process.env[
-      keyByDataSource('CUBEJS_DB_DATABRICKS_TOKEN', dataSource)
+    keyByDataSource('CUBEJS_DB_DATABRICKS_TOKEN', dataSource)
     ]
   ),
 
@@ -1053,7 +1035,7 @@ const variables: Record<string, (...args: any) => any> = {
     dataSource: string,
   }) => process.env[
     keyByDataSource('CUBEJS_DB_DATABRICKS_CATALOG', dataSource)
-  ],
+    ],
 
   /**
    * Databricks OAuth Client ID (Same as the service principal UUID)
@@ -1064,7 +1046,7 @@ const variables: Record<string, (...args: any) => any> = {
     dataSource: string,
   }) => (
     process.env[
-      keyByDataSource('CUBEJS_DB_DATABRICKS_OAUTH_CLIENT_ID', dataSource)
+    keyByDataSource('CUBEJS_DB_DATABRICKS_OAUTH_CLIENT_ID', dataSource)
     ]
   ),
 
@@ -1077,7 +1059,7 @@ const variables: Record<string, (...args: any) => any> = {
     dataSource: string,
   }) => (
     process.env[
-      keyByDataSource('CUBEJS_DB_DATABRICKS_OAUTH_CLIENT_SECRET', dataSource)
+    keyByDataSource('CUBEJS_DB_DATABRICKS_OAUTH_CLIENT_SECRET', dataSource)
     ]
   ),
 
@@ -1131,7 +1113,7 @@ const variables: Record<string, (...args: any) => any> = {
   }) => (
     // TODO (buntarb): this name is a common. Deprecate and replace?
     process.env[
-      keyByDataSource('CUBEJS_AWS_S3_OUTPUT_LOCATION', dataSource)
+    keyByDataSource('CUBEJS_AWS_S3_OUTPUT_LOCATION', dataSource)
     ]
   ),
 
@@ -1145,7 +1127,7 @@ const variables: Record<string, (...args: any) => any> = {
   }) => (
     // TODO (buntarb): Deprecate and replace?
     process.env[
-      keyByDataSource('CUBEJS_AWS_ATHENA_WORKGROUP', dataSource)
+    keyByDataSource('CUBEJS_AWS_ATHENA_WORKGROUP', dataSource)
     ]
   ),
 
@@ -1159,7 +1141,7 @@ const variables: Record<string, (...args: any) => any> = {
   }) => (
     // TODO (buntarb): Deprecate and replace?
     process.env[
-      keyByDataSource('CUBEJS_AWS_ATHENA_CATALOG', dataSource)
+    keyByDataSource('CUBEJS_AWS_ATHENA_CATALOG', dataSource)
     ]
   ),
 
@@ -1172,7 +1154,7 @@ const variables: Record<string, (...args: any) => any> = {
     dataSource: string,
   }) => (
     process.env[
-      keyByDataSource('CUBEJS_AWS_ATHENA_ASSUME_ROLE_ARN', dataSource)
+    keyByDataSource('CUBEJS_AWS_ATHENA_ASSUME_ROLE_ARN', dataSource)
     ]
   ),
 
@@ -1185,7 +1167,7 @@ const variables: Record<string, (...args: any) => any> = {
     dataSource: string,
   }) => (
     process.env[
-      keyByDataSource('CUBEJS_AWS_ATHENA_ASSUME_ROLE_EXTERNAL_ID', dataSource)
+    keyByDataSource('CUBEJS_AWS_ATHENA_ASSUME_ROLE_EXTERNAL_ID', dataSource)
     ]
   ),
 
@@ -1224,7 +1206,7 @@ const variables: Record<string, (...args: any) => any> = {
     dataSource: string,
   }) => (
     process.env[
-      keyByDataSource('CUBEJS_DB_BQ_CREDENTIALS', dataSource)
+    keyByDataSource('CUBEJS_DB_BQ_CREDENTIALS', dataSource)
     ]
   ),
 
@@ -1300,7 +1282,7 @@ const variables: Record<string, (...args: any) => any> = {
     dataSource: string,
   }) => (
     process.env[
-      keyByDataSource('CUBEJS_DB_ELASTIC_APIKEY_ID', dataSource)
+    keyByDataSource('CUBEJS_DB_ELASTIC_APIKEY_ID', dataSource)
     ]
   ),
 
@@ -1313,7 +1295,7 @@ const variables: Record<string, (...args: any) => any> = {
     dataSource: string,
   }) => (
     process.env[
-      keyByDataSource('CUBEJS_DB_ELASTIC_APIKEY_KEY', dataSource)
+    keyByDataSource('CUBEJS_DB_ELASTIC_APIKEY_KEY', dataSource)
     ]
   ),
 
@@ -1326,7 +1308,7 @@ const variables: Record<string, (...args: any) => any> = {
     dataSource: string,
   }) => (
     process.env[
-      keyByDataSource('CUBEJS_DB_ELASTIC_OPENDISTRO', dataSource)
+    keyByDataSource('CUBEJS_DB_ELASTIC_OPENDISTRO', dataSource)
     ]
   ),
 
@@ -1339,7 +1321,7 @@ const variables: Record<string, (...args: any) => any> = {
     dataSource: string,
   }) => (
     process.env[
-      keyByDataSource('CUBEJS_DB_ELASTIC_QUERY_FORMAT', dataSource)
+    keyByDataSource('CUBEJS_DB_ELASTIC_QUERY_FORMAT', dataSource)
     ]
   ),
 
@@ -1356,7 +1338,7 @@ const variables: Record<string, (...args: any) => any> = {
     dataSource: string,
   }) => (
     process.env[
-      keyByDataSource('CUBEJS_FIREBOLT_API_ENDPOINT', dataSource)
+    keyByDataSource('CUBEJS_FIREBOLT_API_ENDPOINT', dataSource)
     ]
   ),
 
@@ -1369,7 +1351,7 @@ const variables: Record<string, (...args: any) => any> = {
     dataSource: string,
   }) => (
     process.env[
-      keyByDataSource('CUBEJS_FIREBOLT_ENGINE_NAME', dataSource)
+    keyByDataSource('CUBEJS_FIREBOLT_ENGINE_NAME', dataSource)
     ]
   ),
 
@@ -1382,7 +1364,7 @@ const variables: Record<string, (...args: any) => any> = {
     dataSource: string,
   }) => (
     process.env[
-      keyByDataSource('CUBEJS_FIREBOLT_ENGINE_ENDPOINT', dataSource)
+    keyByDataSource('CUBEJS_FIREBOLT_ENGINE_ENDPOINT', dataSource)
     ]
   ),
 
@@ -1395,7 +1377,7 @@ const variables: Record<string, (...args: any) => any> = {
     dataSource: string,
   }) => (
     process.env[
-      keyByDataSource('CUBEJS_FIREBOLT_ACCOUNT', dataSource)
+    keyByDataSource('CUBEJS_FIREBOLT_ACCOUNT', dataSource)
     ]
   ),
 
@@ -1412,7 +1394,7 @@ const variables: Record<string, (...args: any) => any> = {
     dataSource: string,
   }) => (
     process.env[
-      keyByDataSource('CUBEJS_DB_HIVE_TYPE', dataSource)
+    keyByDataSource('CUBEJS_DB_HIVE_TYPE', dataSource)
     ]
   ),
 
@@ -1425,7 +1407,7 @@ const variables: Record<string, (...args: any) => any> = {
     dataSource: string,
   }) => (
     process.env[
-      keyByDataSource('CUBEJS_DB_HIVE_VER', dataSource)
+    keyByDataSource('CUBEJS_DB_HIVE_VER', dataSource)
     ]
   ),
 
@@ -1438,7 +1420,7 @@ const variables: Record<string, (...args: any) => any> = {
     dataSource: string,
   }) => (
     process.env[
-      keyByDataSource('CUBEJS_DB_HIVE_THRIFT_VER', dataSource)
+    keyByDataSource('CUBEJS_DB_HIVE_THRIFT_VER', dataSource)
     ]
   ),
 
@@ -1451,9 +1433,54 @@ const variables: Record<string, (...args: any) => any> = {
     dataSource: string,
   }) => (
     process.env[
-      keyByDataSource('CUBEJS_DB_HIVE_CDH_VER', dataSource)
+    keyByDataSource('CUBEJS_DB_HIVE_CDH_VER', dataSource)
     ]
   ),
+
+  /**
+   * Hive AuthZid.
+   */
+  dbAuthZid: ({
+    dataSource
+  }: {
+    dataSource: string,
+  }) => (
+    process.env[
+    keyByDataSource('CUBEJS_DB_AUTHZID', dataSource)
+    ]
+  ),
+
+  /**
+   * Database acquire timeout.
+   */
+  dbAcquireTimeout: ({
+    dataSource
+  }: {
+    dataSource: string,
+  }) => {
+    const key = keyByDataSource('CUBEJS_DB_ACQUIRE_TIMEOUT', dataSource);
+    const value = process.env[key];
+    if (value) {
+      return convertTimeStrToSeconds(value, key);
+    }
+    return undefined;
+  },
+
+  /**
+   * Database socket timeout.
+   */
+  dbTimeout: ({
+    dataSource
+  }: {
+    dataSource: string,
+  }) => {
+    const key = keyByDataSource('CUBEJS_DB_TIMEOUT', dataSource);
+    const value = process.env[key];
+    if (value) {
+      return convertTimeStrToSeconds(value, key);
+    }
+    return undefined;
+  },
 
   /** ****************************************************************
    * Aurora Driver                                                   *
@@ -1468,7 +1495,7 @@ const variables: Record<string, (...args: any) => any> = {
     dataSource: string,
   }) => (
     process.env[
-      keyByDataSource('CUBEJS_DATABASE_SECRET_ARN', dataSource)
+    keyByDataSource('CUBEJS_DATABASE_SECRET_ARN', dataSource)
     ]
   ),
 
@@ -1481,7 +1508,7 @@ const variables: Record<string, (...args: any) => any> = {
     dataSource: string,
   }) => (
     process.env[
-      keyByDataSource('CUBEJS_DATABASE_CLUSTER_ARN', dataSource)
+    keyByDataSource('CUBEJS_DATABASE_CLUSTER_ARN', dataSource)
     ]
   ),
 
@@ -1498,7 +1525,7 @@ const variables: Record<string, (...args: any) => any> = {
     dataSource: string,
   }) => (
     process.env[
-      keyByDataSource('CUBEJS_DB_EXPORT_BUCKET_REDSHIFT_ARN', dataSource)
+    keyByDataSource('CUBEJS_DB_EXPORT_BUCKET_REDSHIFT_ARN', dataSource)
     ]
   ),
 
@@ -1515,7 +1542,7 @@ const variables: Record<string, (...args: any) => any> = {
     dataSource: string,
   }) => (
     process.env[
-      keyByDataSource('CUBEJS_DB_MATERIALIZE_CLUSTER', dataSource)
+    keyByDataSource('CUBEJS_DB_MATERIALIZE_CLUSTER', dataSource)
     ]
   ),
 
@@ -1532,7 +1559,7 @@ const variables: Record<string, (...args: any) => any> = {
     dataSource: string,
   }) => (
     process.env[
-      keyByDataSource('CUBEJS_DB_SNOWFLAKE_ACCOUNT', dataSource)
+    keyByDataSource('CUBEJS_DB_SNOWFLAKE_ACCOUNT', dataSource)
     ]
   ),
 
@@ -1545,7 +1572,7 @@ const variables: Record<string, (...args: any) => any> = {
     dataSource: string,
   }) => (
     process.env[
-      keyByDataSource('CUBEJS_DB_SNOWFLAKE_REGION', dataSource)
+    keyByDataSource('CUBEJS_DB_SNOWFLAKE_REGION', dataSource)
     ]
   ),
 
@@ -1558,7 +1585,7 @@ const variables: Record<string, (...args: any) => any> = {
     dataSource: string,
   }) => (
     process.env[
-      keyByDataSource('CUBEJS_DB_SNOWFLAKE_WAREHOUSE', dataSource)
+    keyByDataSource('CUBEJS_DB_SNOWFLAKE_WAREHOUSE', dataSource)
     ]
   ),
 
@@ -1571,7 +1598,7 @@ const variables: Record<string, (...args: any) => any> = {
     dataSource: string,
   }) => (
     process.env[
-      keyByDataSource('CUBEJS_DB_SNOWFLAKE_ROLE', dataSource)
+    keyByDataSource('CUBEJS_DB_SNOWFLAKE_ROLE', dataSource)
     ]
   ),
 
@@ -1596,11 +1623,10 @@ const variables: Record<string, (...args: any) => any> = {
         return false;
       } else {
         throw new TypeError(
-          `The ${
-            keyByDataSource(
-              'CUBEJS_DB_SNOWFLAKE_CLIENT_SESSION_KEEP_ALIVE',
-              dataSource,
-            )
+          `The ${keyByDataSource(
+            'CUBEJS_DB_SNOWFLAKE_CLIENT_SESSION_KEEP_ALIVE',
+            dataSource,
+          )
           } must be either 'true' or 'false'.`
         );
       }
@@ -1618,7 +1644,7 @@ const variables: Record<string, (...args: any) => any> = {
     dataSource: string,
   }) => (
     process.env[
-      keyByDataSource('CUBEJS_DB_SNOWFLAKE_AUTHENTICATOR', dataSource)
+    keyByDataSource('CUBEJS_DB_SNOWFLAKE_AUTHENTICATOR', dataSource)
     ]
   ),
 
@@ -1631,7 +1657,7 @@ const variables: Record<string, (...args: any) => any> = {
     dataSource: string,
   }) => (
     process.env[
-      keyByDataSource('CUBEJS_DB_SNOWFLAKE_OAUTH_TOKEN', dataSource)
+    keyByDataSource('CUBEJS_DB_SNOWFLAKE_OAUTH_TOKEN', dataSource)
     ]
   ),
 
@@ -1644,7 +1670,7 @@ const variables: Record<string, (...args: any) => any> = {
     dataSource: string,
   }) => (
     process.env[
-      keyByDataSource('CUBEJS_DB_SNOWFLAKE_OAUTH_TOKEN_PATH', dataSource)
+    keyByDataSource('CUBEJS_DB_SNOWFLAKE_OAUTH_TOKEN_PATH', dataSource)
     ]
   ),
 
@@ -1657,7 +1683,7 @@ const variables: Record<string, (...args: any) => any> = {
     dataSource: string,
   }) => (
     process.env[
-      keyByDataSource('CUBEJS_DB_SNOWFLAKE_HOST', dataSource)
+    keyByDataSource('CUBEJS_DB_SNOWFLAKE_HOST', dataSource)
     ]
   ),
 
@@ -1670,7 +1696,7 @@ const variables: Record<string, (...args: any) => any> = {
     dataSource: string,
   }) => (
     process.env[
-      keyByDataSource('CUBEJS_DB_SNOWFLAKE_PRIVATE_KEY', dataSource)
+    keyByDataSource('CUBEJS_DB_SNOWFLAKE_PRIVATE_KEY', dataSource)
     ]
   ),
 
@@ -1683,7 +1709,7 @@ const variables: Record<string, (...args: any) => any> = {
     dataSource: string,
   }) => (
     process.env[
-      keyByDataSource('CUBEJS_DB_SNOWFLAKE_PRIVATE_KEY_PATH', dataSource)
+    keyByDataSource('CUBEJS_DB_SNOWFLAKE_PRIVATE_KEY_PATH', dataSource)
     ]
   ),
 
@@ -1696,7 +1722,7 @@ const variables: Record<string, (...args: any) => any> = {
     dataSource: string,
   }) => (
     process.env[
-      keyByDataSource('CUBEJS_DB_SNOWFLAKE_PRIVATE_KEY_PASS', dataSource)
+    keyByDataSource('CUBEJS_DB_SNOWFLAKE_PRIVATE_KEY_PASS', dataSource)
     ]
   ),
 
@@ -1721,11 +1747,10 @@ const variables: Record<string, (...args: any) => any> = {
         return false;
       } else {
         throw new TypeError(
-          `The ${
-            keyByDataSource(
-              'CUBEJS_DB_SNOWFLAKE_QUOTED_IDENTIFIERS_IGNORE_CASE',
-              dataSource,
-            )
+          `The ${keyByDataSource(
+            'CUBEJS_DB_SNOWFLAKE_QUOTED_IDENTIFIERS_IGNORE_CASE',
+            dataSource,
+          )
           } must be either 'true' or 'false'.`
         );
       }
@@ -1764,7 +1789,7 @@ const variables: Record<string, (...args: any) => any> = {
     dataSource: string,
   }) => (
     process.env[
-      keyByDataSource('CUBEJS_DB_DUCKDB_MOTHERDUCK_TOKEN', dataSource)
+    keyByDataSource('CUBEJS_DB_DUCKDB_MOTHERDUCK_TOKEN', dataSource)
     ]
   ),
 
@@ -1774,7 +1799,7 @@ const variables: Record<string, (...args: any) => any> = {
     dataSource: string,
   }) => (
     process.env[
-      keyByDataSource('CUBEJS_DB_DUCKDB_DATABASE_PATH', dataSource)
+    keyByDataSource('CUBEJS_DB_DUCKDB_DATABASE_PATH', dataSource)
     ]
   ),
 
@@ -1784,7 +1809,7 @@ const variables: Record<string, (...args: any) => any> = {
     dataSource: string,
   }) => (
     process.env[
-      keyByDataSource('CUBEJS_DB_DUCKDB_S3_REGION', dataSource)
+    keyByDataSource('CUBEJS_DB_DUCKDB_S3_REGION', dataSource)
     ]
   ),
 
@@ -1794,7 +1819,7 @@ const variables: Record<string, (...args: any) => any> = {
     dataSource: string,
   }) => (
     process.env[
-      keyByDataSource('CUBEJS_DB_DUCKDB_S3_ACCESS_KEY_ID', dataSource)
+    keyByDataSource('CUBEJS_DB_DUCKDB_S3_ACCESS_KEY_ID', dataSource)
     ]
   ),
 
@@ -1804,7 +1829,7 @@ const variables: Record<string, (...args: any) => any> = {
     dataSource: string,
   }) => (
     process.env[
-      keyByDataSource('CUBEJS_DB_DUCKDB_S3_SECRET_ACCESS_KEY', dataSource)
+    keyByDataSource('CUBEJS_DB_DUCKDB_S3_SECRET_ACCESS_KEY', dataSource)
     ]
   ),
 
@@ -1814,7 +1839,7 @@ const variables: Record<string, (...args: any) => any> = {
     dataSource: string,
   }) => (
     process.env[
-      keyByDataSource('CUBEJS_DB_DUCKDB_S3_ENDPOINT', dataSource)
+    keyByDataSource('CUBEJS_DB_DUCKDB_S3_ENDPOINT', dataSource)
     ]
   ),
 
@@ -1824,7 +1849,7 @@ const variables: Record<string, (...args: any) => any> = {
     dataSource: string,
   }) => (
     process.env[
-      keyByDataSource('CUBEJS_DB_DUCKDB_MEMORY_LIMIT', dataSource)
+    keyByDataSource('CUBEJS_DB_DUCKDB_MEMORY_LIMIT', dataSource)
     ]
   ),
 
@@ -1834,7 +1859,7 @@ const variables: Record<string, (...args: any) => any> = {
     dataSource: string,
   }) => (
     process.env[
-      keyByDataSource('CUBEJS_DB_DUCKDB_SCHEMA', dataSource)
+    keyByDataSource('CUBEJS_DB_DUCKDB_SCHEMA', dataSource)
     ]
   ),
 
@@ -1844,7 +1869,7 @@ const variables: Record<string, (...args: any) => any> = {
     dataSource: string,
   }) => (
     process.env[
-      keyByDataSource('CUBEJS_DB_DUCKDB_S3_USE_SSL', dataSource)
+    keyByDataSource('CUBEJS_DB_DUCKDB_S3_USE_SSL', dataSource)
     ]
   ),
 
@@ -1854,7 +1879,7 @@ const variables: Record<string, (...args: any) => any> = {
     dataSource: string,
   }) => (
     process.env[
-      keyByDataSource('CUBEJS_DB_DUCKDB_S3_URL_STYLE', dataSource)
+    keyByDataSource('CUBEJS_DB_DUCKDB_S3_URL_STYLE', dataSource)
     ]
   ),
 
@@ -1864,7 +1889,7 @@ const variables: Record<string, (...args: any) => any> = {
     dataSource: string,
   }) => (
     process.env[
-      keyByDataSource('CUBEJS_DB_DUCKDB_S3_SESSION_TOKEN', dataSource)
+    keyByDataSource('CUBEJS_DB_DUCKDB_S3_SESSION_TOKEN', dataSource)
     ]
   ),
 
@@ -1912,11 +1937,10 @@ const variables: Record<string, (...args: any) => any> = {
         return false;
       } else {
         throw new TypeError(
-          `The ${
-            keyByDataSource(
-              'CUBEJS_DB_DUCKDB_S3_USE_CREDENTIAL_CHAIN',
-              dataSource,
-            )
+          `The ${keyByDataSource(
+            'CUBEJS_DB_DUCKDB_S3_USE_CREDENTIAL_CHAIN',
+            dataSource,
+          )
           } must be either 'true' or 'false'.`
         );
       }
@@ -1938,7 +1962,7 @@ const variables: Record<string, (...args: any) => any> = {
     dataSource: string,
   }) => (
     process.env[
-      keyByDataSource('CUBEJS_DB_PRESTO_CATALOG', dataSource)
+    keyByDataSource('CUBEJS_DB_PRESTO_CATALOG', dataSource)
     ]
   ),
 
@@ -1951,7 +1975,7 @@ const variables: Record<string, (...args: any) => any> = {
     dataSource: string,
   }) => (
     process.env[
-      keyByDataSource('CUBEJS_DB_PRESTO_AUTH_TOKEN', dataSource)
+    keyByDataSource('CUBEJS_DB_PRESTO_AUTH_TOKEN', dataSource)
     ]
   ),
 
@@ -1968,7 +1992,7 @@ const variables: Record<string, (...args: any) => any> = {
     dataSource: string,
   }) => (
     process.env[
-      keyByDataSource('CUBEJS_DB_PINOT_AUTH_TOKEN', dataSource)
+    keyByDataSource('CUBEJS_DB_PINOT_AUTH_TOKEN', dataSource)
     ]
   ),
 
@@ -1988,11 +2012,10 @@ const variables: Record<string, (...args: any) => any> = {
         return false;
       } else {
         throw new TypeError(
-          `The ${
-            keyByDataSource(
-              'CUBEJS_DB_PINOT_NULL_HANDLING',
-              dataSource,
-            )
+          `The ${keyByDataSource(
+            'CUBEJS_DB_PINOT_NULL_HANDLING',
+            dataSource,
+          )
           } must be either 'true' or 'false'.`
         );
       }
@@ -2014,7 +2037,7 @@ const variables: Record<string, (...args: any) => any> = {
     dataSource: string,
   }) => (
     process.env[
-      keyByDataSource('CUBEJS_DB_DREMIO_AUTH_TOKEN', dataSource)
+    keyByDataSource('CUBEJS_DB_DREMIO_AUTH_TOKEN', dataSource)
     ]
   ),
 
